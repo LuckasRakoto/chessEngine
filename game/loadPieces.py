@@ -15,3 +15,4 @@ def drawPieces(screen, board):
             piece = board[r][c]
             if piece != '--':
                 screen.blit(images[piece], pg.Rect(c*SQUARE_SIZE, r*SQUARE_SIZE, SQUARE_SIZE, SQUARE_SIZE))
+
