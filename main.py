@@ -1,21 +1,26 @@
-from xml.etree.ElementTree import PI
 import pygame as pg
 
-from game.helper.constants import SQUARE_SIZE, WIDTH, HEIGHT, PINK
+from game.helper.constants import SQUARE_SIZE, WIDTH, HEIGHT
 import game.board as brd
 from game.loadPieces import drawPieces
+from game.movePieces import movePiece
+from game.pieceSelector import squareSelected
+
 pg.init()
+
 FPS = 30
 
 
 Window = pg.display.set_mode((WIDTH, HEIGHT))
 pg.display.set_caption("Chess")
 
-
 def main():
     run = True
     clock = pg.time.Clock()
     board = brd.Board()
+    sqSelected = ()
+    playerClicks = []
+    
 
     board.drawSquares(Window)
     drawPieces(Window, board.board)
@@ -32,26 +37,35 @@ def main():
                 squareY = location[1] // SQUARE_SIZE
 
                 if board.board[squareY][squareX] != '--':
-                    pg.draw.rect(Window, PINK, (squareX*SQUARE_SIZE, squareY *
-                             SQUARE_SIZE, SQUARE_SIZE, SQUARE_SIZE))
-                    board.moveLog.append([{board.board[squareY][squareX]: [squareX, squareY]}])
-                    board.selectedPiece = board.board[squareY][squareX]
-                    print(board.selectedPiece)
+                    squareSelected(Window, board, squareX, squareY)
                     drawPieces(Window, board.board)
-                    
-            if board.selectedPiece != None:
-                toGo = pg.mouse.get_pos()
-                toGoX = toGo[0] // SQUARE_SIZE
-                toGoY = toGo[1] // SQUARE_SIZE 
-                print('on part vers:', toGoX, toGoY)
-                if board.board[toGoY][toGoX] == '--':
-                    board.board[toGoY][toGoX] = board.selectedPiece
-                    board.board[squareX][squareY] = '--'
+
+                if sqSelected == (squareX, squareY):
+                    sqSelected = ()
+                    playerClicks = []
+                    board.selectedPiece = [None, None, None]
                     board.drawSquares(Window)
-                    print('avant de tout redessiner')
-                    drawPieces(Window, board.board)
-                    board.selectedPiece = None
-                        
+                    drawPieces(Window, board.board)  
+                else:
+                    sqSelected = (squareX, squareY)
+                    playerClicks.append(sqSelected)
+
+                if board.selectedPiece[0] != None and board.board[squareY][squareX] != '--' and len(playerClicks) > 1:
+                    sqSelected = ()
+                    playerClicks = []
+                    board.selectedPiece = [None, None, None]
+                    board.drawSquares(Window)
+                    drawPieces(Window, board.board)         
+                
+                elif len(playerClicks) == 2:
+                    iniPos = playerClicks[0]
+                    sqSelected = ()
+                    playerClicks = []
+                    toGo = pg.mouse.get_pos()
+                    toGo = ( toGo[0] // SQUARE_SIZE, toGo[1] //SQUARE_SIZE )
+                    movePiece(iniPos, toGo, Window, board)
+                
+                    
                     
                 
         pg.display.update()
