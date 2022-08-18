@@ -36,13 +36,14 @@ def main():
                 squareX = location[0] // SQUARE_SIZE 
                 squareY = location[1] // SQUARE_SIZE
 
-                if board.board[squareY][squareX] != '--':
+                if board.board[squareY][squareX][0] == 'w' and board.whiteToMove == True or board.board[squareY][squareX][0] == 'b' and board.whiteToMove == False :
                     squareSelected(Window, board, squareX, squareY)
                     drawPieces(Window, board.board)
 
                 if sqSelected == (squareX, squareY):
                     sqSelected = ()
                     playerClicks = []
+                    board.movesPossible = []
                     board.selectedPiece = [None, None, None]
                     board.drawSquares(Window)
                     drawPieces(Window, board.board)  
@@ -50,14 +51,15 @@ def main():
                     sqSelected = (squareX, squareY)
                     playerClicks.append(sqSelected)
 
-                if board.selectedPiece[0] != None and board.board[squareY][squareX] != '--' and len(playerClicks) > 1:
+                if board.selectedPiece[0] != None and board.selectedPieceColor == board.board[squareY][squareX][0] and len(playerClicks) > 1:
                     sqSelected = ()
                     playerClicks = []
-                    board.selectedPiece = [None, None, None]
+                    board.movesPossible = []
+                    board.selectedPiece = [None, None, None] 
                     board.drawSquares(Window)
                     drawPieces(Window, board.board)         
                 
-                elif len(playerClicks) == 2:
+                if len(playerClicks) == 2:
                     iniPos = playerClicks[0]
                     sqSelected = ()
                     playerClicks = []
@@ -65,6 +67,7 @@ def main():
                     toGo = ( toGo[0] // SQUARE_SIZE, toGo[1] //SQUARE_SIZE )
                     movePiece(iniPos, toGo, Window, board)
                 
+
                     
                     
                 

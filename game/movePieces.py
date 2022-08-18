@@ -6,7 +6,6 @@ from game.board import Move
 
 def movePiece(iniPos, finalPos, window, gameBoard):
     move = Move(iniPos, finalPos, gameBoard)
-    move.moveValidation(gameBoard.board)
-    gameBoard.makeAMove(move)
-    gameBoard.drawSquares(window)
-    drawPieces(window, gameBoard.board)
+    gameBoard.makeAMove(move, window)
+    gameBoard.movesPossible = []
+    gameBoard.selectedPiece = [None, None, None]
