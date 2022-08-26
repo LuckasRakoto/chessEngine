@@ -11,5 +11,6 @@ def changePawn(row, col, color, board, screen):
     if color == 'w':
         yPos = SQUARE_SIZE
     elif color == 'b':
-        yPos = 7*SQUARE_SIZE
-    pg.draw.rect(screen, BLUE, ((col)*SQUARE_SIZE, yPos,SQUARE_SIZE*2, SQUARE_SIZE*2))
+        yPos = 3*SQUARE_SIZE
+    pg.draw.rect(screen, BLUE, ((col)*SQUARE_SIZE, yPos,SQUARE_SIZE, SQUARE_SIZE*4))
+    

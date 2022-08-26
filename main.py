@@ -1,4 +1,5 @@
 import pygame as pg
+from game.Pieces.changePiece import changePawn
 
 from game.helper.constants import SQUARE_SIZE, WIDTH, HEIGHT
 import game.board as brd
@@ -31,6 +32,15 @@ def main():
         for event in pg.event.get():
             if event.type == pg.QUIT:
                 run = False
+
+            for i in range(8):
+                if board.board[0][i] == 'wP':
+                    print('on est là')
+                    changePawn(0, i, 'w', board, Window)
+                if board.board[7][i] == 'bP':
+                    print('on est là aussi')
+                    changePawn(7, i, 'b', board, Window)
+
             if event.type == pg.MOUSEBUTTONDOWN:
                 location = pg.mouse.get_pos()
                 squareX = location[0] // SQUARE_SIZE 

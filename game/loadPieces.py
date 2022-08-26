@@ -16,3 +16,5 @@ def drawPieces(screen, board):
             if piece != '--':
                 screen.blit(images[piece], pg.Rect(c*SQUARE_SIZE, r*SQUARE_SIZE, SQUARE_SIZE, SQUARE_SIZE))
 
+def drawMainPieces(screen):
+    pass
