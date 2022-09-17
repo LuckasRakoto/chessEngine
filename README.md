@@ -5,4 +5,5 @@ be. I learned a lot particularly in OOP. But now it's time for me to move on and
 I swap to chessjs and chessboardjs for the continuation of the project.
 
 When I stopped working on this it looked like that
-http://g.recordit.co/UElj0GOktj.gif
+![image](https://user-images.githubusercontent.com/88325439/190864718-429fb7ca-17f9-41be-8b7b-b924229c7da4.png)
+
